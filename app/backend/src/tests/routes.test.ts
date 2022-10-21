@@ -42,5 +42,6 @@ describe('Teste da rota login', () => {
   it('deve retornar um status 200', async () => {
     const httpResponse = await chai.request(app).get('/login')
     expect(httpResponse.status).to.equal(200);
+    expect(httpResponse.body).to.deep.equal({ message: 'Teste ok' })
   });
 });

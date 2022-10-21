@@ -9,7 +9,9 @@ class App {
     this.config();
 
     // Não remover essa rota
+
     this.app.get('/', (req, res) => res.json({ ok: true }));
+    this.app.get('/login', (req, res) => res.status(200).json({ message: 'Teste ok' }));
   }
 
   private config():void {
@@ -23,6 +25,10 @@ class App {
     this.app.use(express.json());
     this.app.use(accessControl);
   }
+
+  /*  public routes(): void {
+    this.app.get('/login', (req, res) => res.send(200).json({ message: 'ok' }));
+  } */
 
   public start(PORT: string | number):void {
     this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
