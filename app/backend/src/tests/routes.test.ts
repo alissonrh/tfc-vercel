@@ -8,39 +8,13 @@ import Example from '../database/models/ExampleModel';
 
 import { Response } from 'superagent';
 
-chai.use(chaiHttp);
+chai.use(chaiHttp); // o chaiHttp usa o request
 
 const { expect } = chai;
 
 describe('Teste da rota login', () => {
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
-
-  // let chaiHttpResponse: Response;
-
-  // before(async () => {
-  //   sinon
-  //     .stub(Example, "findOne")
-  //     .resolves({
-  //       ...<Seu mock>
-  //     } as Example);
-  // });
-
-  // after(()=>{
-  //   (Example.findOne as sinon.SinonStub).restore();
-  // })
-
-  // it('...', async () => {
-  //   chaiHttpResponse = await chai
-  //      .request(app)
-  //      ...
-
-  //   expect(...)
-  // });
-
-  it('deve retornar um status 200', async () => {
-    const httpResponse = await chai.request(app).get('/login')
+  it('deve retornar um status 200', async () => { 
+    const httpResponse = await chai.request(app).get('/login') // o chai
     expect(httpResponse.status).to.equal(200);
     expect(httpResponse.body).to.deep.equal({ message: 'Teste ok' })
   });
