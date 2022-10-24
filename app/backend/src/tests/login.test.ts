@@ -37,4 +37,17 @@ describe('POST /login', () => {
       expect(httpResponse.body).to.deep.equal({ "message": "All fields must be filled" })
     })
   })
+
+  describe('quando todos os campos forem validos', () => {
+    it('deve retornar um status 200', async () => {
+      const httpResponse = await chai
+        .request(app)
+        .post('/login')
+        .send({
+          password: "any_string",
+          email: 'any'
+        })
+      expect(httpResponse.status).to.equal(200)
+    })
+  })
 });
