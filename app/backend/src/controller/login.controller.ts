@@ -17,4 +17,8 @@ export default class LoginController {
     const response = await this.loginService.login(req.body);
     return res.status(200).json({ token: response });
   }
+
+  public auth = (req: Request, res: Response): Response => res
+    .status(200)
+    .json({ role: req.body.role });
 }

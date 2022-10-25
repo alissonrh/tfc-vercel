@@ -15,7 +15,7 @@ export default class LoginService implements IloginService {
       throw new UnauthorizedError('Incorrect email or password');
     }
 
-    const token = TokenManager.makeToken(user);
+    const token = TokenManager.makeToken(response);
     return token;
   };
 }
