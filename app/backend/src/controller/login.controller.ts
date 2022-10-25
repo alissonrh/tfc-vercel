@@ -1,15 +1,20 @@
 import { Request, Response } from 'express';
+import MissingParamError from '../errors/missingParamError';
 import { IloginService } from '../interfaces/services/ilogin.interface';
 
 export default class LoginController {
-  private readonly loginService: IloginService;
+  private loginService: IloginService;
 
   constructor(loginService: IloginService) {
     this.loginService = loginService;
   }
 
-  login(req: Request, res: Response): Response {
-    this.loginService.login(req.body);
-    return res.sendStatus(200);
+  async login(req: Request, res: Response): Promise<Response> {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      throw new MissingParamError('All fields must be filled');
+    }
+    const response = await this.loginService.login(req.body);
+    return res.status(200).json({ token: response });
   }
 }

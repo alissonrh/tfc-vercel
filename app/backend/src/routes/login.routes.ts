@@ -1,12 +1,12 @@
 import { Router } from 'express';
+import UserRepository from '../model/repository/user.repositori';
 import LoginService from '../service/login.service';
 import LoginController from '../controller/login.controller';
 
 const loginRouter = Router();
-const loginService = new LoginService();
+const loginModel = new UserRepository();
+const loginService = new LoginService(loginModel);
 const loginController = new LoginController(loginService);
-
-/* loginRouter.get('/teste', (req, res) => res.status(200).json({ message: 'Teste ok' })); */
 
 loginRouter.post('/', (req, res) => loginController.login(req, res));
 
