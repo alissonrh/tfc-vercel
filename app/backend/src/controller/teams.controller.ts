@@ -1,22 +1,13 @@
 import { Request, Response } from 'express';
+import ITeamsService from '../interfaces/services/iTeams.interface';
 
-export default class LoginController {
-  private loginService: IloginService;
-
-  constructor(loginService: IloginService) {
-    this.loginService = loginService;
+export default class TeamsController {
+  constructor(private teamsService: ITeamsService) {
+    this.teamsService = teamsService;
   }
 
-  async login(req: Request, res: Response): Promise<Response> {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      throw new MissingParamError('All fields must be filled');
-    }
-    const response = await this.loginService.login(req.body);
-    return res.status(200).json({ token: response });
+  async findAll(_req: Request, res: Response): Promise<Response> {
+    const response = await this.teamsService.findAll();
+    return res.status(200).json(response);
   }
-
-  public auth = (req: Request, res: Response): Response => res
-    .status(200)
-    .json({ role: req.body.role });
 }

@@ -1,3 +1,3 @@
-export interface ITeamsService {
+export default interface ITeamsService {
   findAll(): any
 }
