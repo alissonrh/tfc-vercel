@@ -54,26 +54,4 @@ describe('POST /login', () => {
       expect(httpResponse.status).to.equal(200)
     })
   })
-
-  /* describe('quando o email é invalidos', () => {
-    const user: IUserRepository = {
-      id: 1,
-      username: 'Admin',
-      role: 'admin',
-      email: 'admin@admin.com',
-      password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW'
-    }
-    before(() => sinon.stub(Model, 'findOne').resolves(user as any))
-    after(() => sinon.restore())
-    it('deve retornar um status 401', async () => {
-      const httpResponse = await chai
-        .request(app)
-        .post('/login')
-        .send({
-          password: "any_string",
-          email: 'any_amail'
-        })
-      expect(httpResponse.status).to.equal(401)
-    })
-  }) */
 });
