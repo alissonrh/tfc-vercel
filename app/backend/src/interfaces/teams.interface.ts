@@ -1,6 +1,6 @@
-interface Teams {
+export default interface ITeams {
   id: number;
   teamName: string;
 }
 
-export type arrayTeams = Teams[];
+export type arrayTeams = ITeams[];

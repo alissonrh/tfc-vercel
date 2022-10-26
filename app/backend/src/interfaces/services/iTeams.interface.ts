@@ -1,3 +1,6 @@
+import ITeams from '../teams.interface';
+
 export default interface ITeamsService {
-  findAll(): any
+  findAll(): Promise<ITeams[] | null >
+  findOne(id: number): Promise<ITeams | null >
 }

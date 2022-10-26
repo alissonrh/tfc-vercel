@@ -25,7 +25,15 @@ describe('GET /teamns', () => {
         .get('/teams')
       expect(httpResponse.status).to.equal(200)
       expect(httpResponse.body).to.deep.equal(teams)
+    })
 
+    it('deve retornar um status 200 e o time da Bahia', async () => {
+      const httpResponse = await chai
+        .request(app)
+        .get('/teams/2')
+        .send('2')
+      expect(httpResponse.status).to.equal(200)
+      expect(httpResponse.body).to.deep.equal(teams[1])
     })
   })
 
