@@ -10,7 +10,7 @@ export default class TeamsRepository {
   };
 
   public findOne = async (id: number): Promise<ITeams | null> => {
-    const responseTeams = await this.teamsModel.findByPk(id, { raw: true });
+    const responseTeams = await this.teamsModel.findByPk(id);
     return responseTeams;
   };
 }
