@@ -15,10 +15,10 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
   if (!data) {
     return res
       .status(401)
-      .json({ message: 'Expired or invalid token' });
+      .json({ message: 'Token must be a valid token' });
   }
 
-  req.body = data;
+  req.body.data = data;
   return next();
 };
 

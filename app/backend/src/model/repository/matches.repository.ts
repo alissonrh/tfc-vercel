@@ -34,4 +34,17 @@ export default class MatchesRepository {
     );
     return { message: 'Finished' };
   };
+
+  public createMatche = async ({
+    homeTeam, awayTeam, homeTeamGoals, awayTeamGoals,
+  }: IMatches): Promise<IMatches> => {
+    const add = await this.matchesModel.create({
+      homeTeam,
+      awayTeam,
+      homeTeamGoals,
+      awayTeamGoals,
+      inProgress: true,
+    });
+    return add;
+  };
 }
