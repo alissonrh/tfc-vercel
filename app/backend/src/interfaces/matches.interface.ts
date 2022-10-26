@@ -4,7 +4,7 @@ export interface IMatches {
   homeTeamGoals: number,
   awayTeam: number,
   awayTeamGoals: number,
-  inProgress: boolean,
+  inProgress: boolean | string,
 }
 
 export default interface ICustomMatches extends IMatches {

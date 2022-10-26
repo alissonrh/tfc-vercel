@@ -9,4 +9,11 @@ export default class MatchesService implements IMatchesService {
     const response = await this.matchesRepository.findAll();
     return response;
   };
+
+  public findInProgress = async (inProgress: boolean):
+  Promise<IMatches[] | ICustomMatches[] | null> => {
+    console.log('service', inProgress);
+    const response = await this.matchesRepository.findInProgress(inProgress);
+    return response;
+  };
 }

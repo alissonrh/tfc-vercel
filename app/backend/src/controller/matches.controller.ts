@@ -6,8 +6,14 @@ export default class MatchesController {
     this.matchesService = matchesService;
   }
 
-  async findAll(_req: Request, res: Response): Promise<Response> {
-    const response = await this.matchesService.findAll();
+  async findAll(req: Request, res: Response): Promise<Response> {
+    const { inProgress } = req.query;
+    if (!inProgress) {
+      const response = await this.matchesService.findAll();
+      return res.status(200).json(response);
+    }
+    const stringToBoolean = Boolean(JSON.parse(inProgress as string));
+    const response = await this.matchesService.findInProgress(stringToBoolean);
     return res.status(200).json(response);
   }
 }
