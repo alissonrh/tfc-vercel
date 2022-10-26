@@ -40,4 +40,13 @@ export default class MatchesService implements IMatchesService {
       .createMatche({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals });
     return response;
   };
+
+  public updateGoals = async (
+    id: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ): Promise<object> => {
+    const response = await this.matchesRepository.updateGoals(id, homeTeamGoals, awayTeamGoals);
+    return response;
+  };
 }

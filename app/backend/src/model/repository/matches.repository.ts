@@ -35,6 +35,19 @@ export default class MatchesRepository {
     return { message: 'Finished' };
   };
 
+  public updateGoals = async (
+    id: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ): Promise<object> => {
+    await this.matchesModel.update(
+      { homeTeamGoals,
+        awayTeamGoals },
+      { where: { id } },
+    );
+    return { message: 'Gols Updated' };
+  };
+
   public createMatche = async ({
     homeTeam, awayTeam, homeTeamGoals, awayTeamGoals,
   }: IMatches): Promise<IMatches> => {

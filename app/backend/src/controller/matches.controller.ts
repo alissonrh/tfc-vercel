@@ -27,4 +27,12 @@ export default class MatchesController {
     const response = await this.matchesService.createMatche(req.body);
     return res.status(201).json(response);
   }
+
+  async updateGoals(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    const response = await this.matchesService
+      .updateGoals(Number(id), homeTeamGoals, awayTeamGoals);
+    return res.status(200).json(response);
+  }
 }
