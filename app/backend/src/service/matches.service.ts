@@ -12,8 +12,12 @@ export default class MatchesService implements IMatchesService {
 
   public findInProgress = async (inProgress: boolean):
   Promise<IMatches[] | ICustomMatches[] | null> => {
-    console.log('service', inProgress);
     const response = await this.matchesRepository.findInProgress(inProgress);
+    return response;
+  };
+
+  public finishMatch = async (id: number): Promise<object> => {
+    const response = await this.matchesRepository.finishMatch(id);
     return response;
   };
 }

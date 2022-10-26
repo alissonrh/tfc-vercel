@@ -16,4 +16,10 @@ export default class MatchesController {
     const response = await this.matchesService.findInProgress(stringToBoolean);
     return res.status(200).json(response);
   }
+
+  async finish(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const response = await this.matchesService.finishMatch(Number(id));
+    return res.status(200).json(response);
+  }
 }

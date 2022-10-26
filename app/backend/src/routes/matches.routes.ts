@@ -9,5 +9,6 @@ const matchesService = new MatchesService(matchesModel);
 const matchesController = new MatchesController(matchesService);
 
 matchesRouter.get('/', (req, res) => matchesController.findAll(req, res));
+matchesRouter.patch('/:id/finish', (req, res) => matchesController.finish(req, res));
 
 export default matchesRouter;

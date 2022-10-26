@@ -19,8 +19,6 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
   }
 
   req.body = data;
-  console.log('DATA', data);
-
   return next();
 };
 

@@ -17,7 +17,6 @@ export default class MatchesRepository {
 
   public findInProgress = async (progress: boolean):
   Promise<IMatches[] | ICustomMatches[] | null> => {
-    console.log('repository', progress);
     const responseMatches = await this.matchesModel.findAll({
       where: { inProgress: progress },
       include: [
@@ -26,5 +25,13 @@ export default class MatchesRepository {
       ],
     });
     return responseMatches;
+  };
+
+  public finishMatch = async (id: number): Promise<object> => {
+    await this.matchesModel.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+    return { message: 'Finished' };
   };
 }
