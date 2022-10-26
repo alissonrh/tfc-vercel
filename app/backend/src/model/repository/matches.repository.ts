@@ -12,7 +12,6 @@ export default class MatchesRepository {
         { model: Teams, as: 'teamAway', attributes: { exclude: ['id'] } },
       ],
     });
-    console.log(responseMatches);
     return responseMatches;
   };
 }

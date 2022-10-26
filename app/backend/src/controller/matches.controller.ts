@@ -8,7 +8,6 @@ export default class MatchesController {
 
   async findAll(_req: Request, res: Response): Promise<Response> {
     const response = await this.matchesService.findAll();
-    console.log('CONTROLE', response);
     return res.status(200).json(response);
   }
 }
