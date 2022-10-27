@@ -15,6 +15,13 @@ export default class MatchesRepository {
     return responseMatches;
   };
 
+  public findFinishedMatches = async (): Promise<IMatches[] | null> => {
+    const responseMatches = await this.matchesModel.findAll({
+      where: { inProgress: false },
+    });
+    return responseMatches;
+  };
+
   public findInProgress = async (progress: boolean):
   Promise<IMatches[] | ICustomMatches[] | null> => {
     const responseMatches = await this.matchesModel.findAll({
