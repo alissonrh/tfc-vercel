@@ -1,7 +1,6 @@
 import MatchesRepository from '../model/repository/matches.repository';
 import TeamsRepository from '../model/repository/teams.repository';
 import { ILeaderboards } from '../interfaces/leaderbords.interface';
-/* import ITeams from '../interfaces/teams.interface'; */
 import { IMatches } from '../interfaces/matches.interface';
 import ITeams from '../interfaces/teams.interface';
 
@@ -38,10 +37,12 @@ export default class LeaderboardService {
   };
 
   public classification = async () => {
+    const arrayHome = await this.classificationHome();
+    const arrayAway = await this.classificationAway();
     const arrayTeams = await this.getTeams();
-    const arrayMatches = await this.getMatchs();
-    if (arrayTeams && arrayMatches) {
-      const response = await Promise.all(arrayTeams.map((e) => this.makeObj(e, arrayMatches)));
+    if (arrayHome && arrayAway && arrayTeams) {
+      const response = await Promise.all(arrayTeams
+        .map((e) => this.makeObj(e.teamName, arrayHome, arrayAway)));
       return this.sort(response);
     }
   };
@@ -97,21 +98,25 @@ export default class LeaderboardService {
     return obj;
   };
 
-  makeObj = async (team: ITeams, matches: IMatches[]): Promise<ILeaderboards> => {
+  makeObj = (team: string, arrayHome: ILeaderboards[], arrayAway: ILeaderboards[]) => {
     const obj = { ...this.objectResult };
-    matches.forEach((e) => {
-      obj.name = team.teamName;
-      if (team.id === e.awayTeam || team.id === e.homeTeam) obj.totalGames += 1;
-      if (e.homeTeamGoals > e.awayTeamGoals) obj.totalVictories += 1;
-      if (e.homeTeamGoals < e.awayTeamGoals) obj.totalLosses += 1;
-      if (e.homeTeamGoals === e.awayTeamGoals) obj.totalDraws += 1;
+    arrayAway.forEach((away) => {
+      obj.name = team; if (obj.name === away.name) {
+        obj.totalGames = away.totalGames; obj.totalVictories = away.totalVictories;
+        obj.totalLosses = away.totalLosses; obj.totalDraws = away.totalDraws;
+        obj.goalsFavor = away.goalsFavor; obj.goalsOwn += away.goalsOwn;
+      }
+    });
+    arrayHome.forEach((home) => {
+      if (obj.name === home.name) {
+        obj.totalGames += home.totalGames; obj.totalVictories += home.totalVictories;
+        obj.totalLosses += home.totalLosses; obj.totalDraws += home.totalDraws;
+        obj.goalsFavor += home.goalsFavor; obj.goalsOwn += home.goalsOwn;
+      }
       obj.totalPoints = obj.totalVictories * 3 + obj.totalDraws;
-      obj.goalsFavor = e.homeTeamGoals;
-      obj.goalsOwn = e.awayTeamGoals;
       obj.goalsBalance = obj.goalsFavor - obj.goalsOwn;
       obj.efficiency = ((obj.totalPoints / (obj.totalGames * 3)) * 100).toFixed(2);
-    });
-    return obj;
+    }); return obj;
   };
 
   sort = async (arrayObj: ILeaderboards[]):
