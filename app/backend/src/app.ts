@@ -10,7 +10,7 @@ class App {
   public app: express.Express;
 
   constructor() {
-    this.app = express.default();
+    this.app = express();
 
     this.config();
     // Não remover essa rota
